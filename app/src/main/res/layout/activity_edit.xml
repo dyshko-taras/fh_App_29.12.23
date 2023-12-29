@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_мain"
+    tools:context=".activity.EditActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/selector_button_return">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            style="@style/roboto_regular_22_text_body_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/edit_profile" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:layout_width="148.62dp"
+                android:layout_height="148.22dp"
+                android:layout_marginTop="59dp"
+                app:srcCompat="@drawable/avatar_def" />
+
+            <ImageView
+                android:id="@+id/buttonAddPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-24dp"
+                android:background="@drawable/selector_button_add" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="32dp"
+                android:hint="@string/name"
+                app:boxStrokeColor="@color/accent_primary_1"
+                app:boxStrokeErrorColor="@color/support_error_base"
+                app:cursorColor="@color/accent_primary_1"
+                app:errorTextColor="@color/support_error_base"
+                app:helperText="@string/enter_your_name"
+                app:helperTextTextAppearance="@style/roboto_regular_12_text_secondary_text"
+                app:hintTextColor="@color/accent_primary_1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textAppearance="@style/roboto_regular_16_text_body_text" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonSaveChanges"
+                style="@style/button_accept"
+                android:layout_width="300dp"
+                android:layout_height="41dp"
+                android:layout_marginTop="256dp"
+                android:text="@string/save_changes" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

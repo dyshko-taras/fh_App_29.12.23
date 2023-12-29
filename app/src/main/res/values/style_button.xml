@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="button_accept">
+        <item name="android:textAppearance">@style/roboto_semiBold_18_text_white_text</item>
+        <item name="android:background">@drawable/selector_button_0</item>
+    </style>
+</resources>
