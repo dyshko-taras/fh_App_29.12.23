@@ -25,4 +25,8 @@ class LoadActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onBackPressed() {
+        finishAffinity()
+    }
 }

@@ -35,4 +35,8 @@ class LoadActivity2 : AppCompatActivity() {
             MatchUpcomingActivity.launch(this)
         }
     }
+
+    override fun onBackPressed() {
+       finishAffinity()
+    }
 }

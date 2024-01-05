@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import com.bumptech.glide.Glide
 import com.game.game.R
 import com.game.game.data.SharedPreferencesGame
 import com.game.game.tools.AppUtils
@@ -28,7 +29,8 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var buttonMatchUpcoming:ImageView
     private lateinit var buttonMatchPast:ImageView
 
-    private lateinit var imageAvatar:ImageView
+    private lateinit var imageViewAvatar:ImageView
+    private lateinit var textViewName:TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,8 +39,9 @@ class SettingsActivity : AppCompatActivity() {
         initViews()
         setListeners()
         if (SharedPreferencesGame.getPathAvatar(this) != "") {
-            imageAvatar.setImageURI(Uri.parse(SharedPreferencesGame.getPathAvatar(this)))
+            Glide.with(this).load(SharedPreferencesGame.getPathAvatar(this)).circleCrop().into(imageViewAvatar)
         }
+        textViewName.text = SharedPreferencesGame.getName(this)
     }
 
     //launch activity fun
@@ -58,7 +61,8 @@ class SettingsActivity : AppCompatActivity() {
         buttonDeleteData = findViewById(R.id.buttonDeleteData)
         buttonMatchUpcoming = findViewById(R.id.buttonMatchUpcoming)
         buttonMatchPast = findViewById(R.id.buttonMatchPast)
-        imageAvatar = findViewById(R.id.imageAvatar)
+        imageViewAvatar = findViewById(R.id.imageViewAvatar)
+        textViewName = findViewById(R.id.textViewName)
     }
 
     private fun setListeners() {
@@ -111,14 +115,14 @@ class SettingsActivity : AppCompatActivity() {
 
             val confirmButton = view.findViewById<TextView>(R.id.buttonDelete)
             confirmButton.setOnClickListener {
-                // Код для видалення даних
+                SharedPreferencesGame.setName(this, "Mykola")
+                SharedPreferencesGame.setPathAvatar(this, "")
+                launch(this)
                 dialog.dismiss()
             }
 
             val cancelButton = view.findViewById<TextView>(R.id.buttonCancel)
             cancelButton.setOnClickListener {
-                SharedPreferencesGame.setName(this, "Mykola")
-                SharedPreferencesGame.setPathAvatar(this, "")
                 dialog.dismiss()
             }
             dialog.show()
