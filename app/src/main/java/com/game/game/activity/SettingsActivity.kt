@@ -128,6 +128,7 @@ class SettingsActivity : AppCompatActivity() {
             dialog.show()
         }
 
+
         buttonMatchUpcoming.setOnClickListener {
             MatchUpcomingActivity.launch(this)
         }

@@ -6,6 +6,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.game.game.data.AppDatabase
+import com.game.game.data.Match
+import com.game.game.data.MatchRepository
 import com.game.game.web.ApiFactory
 import com.game.game.web.ResultJson
 import kotlinx.coroutines.launch
@@ -19,6 +22,11 @@ class MatchViewModel(aplication: Application) : AndroidViewModel(aplication) {
     private var _data = MutableLiveData<ResultJson>()
     val dataLiveData:LiveData<ResultJson>
         get() = _data
+
+    private val matchDao = AppDatabase.getDatabase(aplication).matchDao()
+    private val matchRepository = MatchRepository(matchDao)
+
+
 
 
 //    fun getData() {
@@ -54,4 +62,6 @@ class MatchViewModel(aplication: Application) : AndroidViewModel(aplication) {
             }
         }
     }
+
+
 }

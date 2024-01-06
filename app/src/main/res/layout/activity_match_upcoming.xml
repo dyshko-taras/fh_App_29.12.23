@@ -24,92 +24,112 @@
             android:text="@string/matchboard" />
     </androidx.appcompat.widget.Toolbar>
 
-    <ScrollView
+
+    <!--    <ScrollView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/toolbar">-->
+
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="vertical">-->
+
+    <!--            <LinearLayout-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:gravity="center"-->
+    <!--                android:orientation="horizontal">-->
+
+    <!--                <TextView-->
+    <!--                    android:id="@+id/textViewDay0"-->
+    <!--                    style="@style/roboto_semiBold_14_text_body_text"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_gravity="center"-->
+    <!--                    android:layout_marginEnd="30dp"-->
+    <!--                    android:text="@string/today" />-->
+
+
+    <!--                <TextView-->
+    <!--                    android:id="@+id/textViewDay1"-->
+    <!--                    style="@style/roboto_semiBold_14_text_body_text"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_gravity="center"-->
+    <!--                    android:layout_marginEnd="30dp"-->
+    <!--                    android:text="1" />-->
+
+
+    <!--                <TextView-->
+    <!--                    android:id="@+id/textViewDay2"-->
+    <!--                    style="@style/roboto_semiBold_14_text_body_text"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_gravity="center"-->
+    <!--                    android:layout_marginEnd="30dp"-->
+    <!--                    android:text="2" />-->
+
+    <!--                <TextView-->
+    <!--                    android:id="@+id/textViewDay3"-->
+    <!--                    style="@style/roboto_semiBold_14_text_body_text"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_gravity="center"-->
+    <!--                    android:layout_marginEnd="30dp"-->
+    <!--                    android:text="3" />-->
+
+    <!--                <TextView-->
+    <!--                    android:id="@+id/textViewDay4"-->
+    <!--                    style="@style/roboto_semiBold_14_text_body_text"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_gravity="center"-->
+    <!--                    android:layout_marginEnd="30dp"-->
+    <!--                    android:text="4" />-->
+
+    <!--                <TextView-->
+    <!--                    android:id="@+id/textViewDay5"-->
+    <!--                    style="@style/roboto_semiBold_14_text_body_text"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_gravity="center"-->
+    <!--                    android:layout_marginEnd="30dp"-->
+    <!--                    android:text="5" />-->
+
+    <!--                <TextView-->
+    <!--                    android:id="@+id/textViewDay6"-->
+    <!--                    style="@style/roboto_semiBold_14_text_body_text"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_gravity="center"-->
+    <!--                    android:text="6" />-->
+    <!--            </LinearLayout>-->
+
+
+    <!--        </LinearLayout>-->
+
+    <!--    </ScrollView>-->
+
+    <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textViewDay0"
-                    style="@style/roboto_semiBold_14_text_body_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="30dp"
-                    android:text="@string/today" />
-
-
-                <TextView
-                    android:id="@+id/textViewDay1"
-                    style="@style/roboto_semiBold_14_text_body_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="30dp"
-                    android:text="1" />
-
-
-                <TextView
-                    android:id="@+id/textViewDay2"
-                    style="@style/roboto_semiBold_14_text_body_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="30dp"
-                    android:text="2" />
-
-                <TextView
-                    android:id="@+id/textViewDay3"
-                    style="@style/roboto_semiBold_14_text_body_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="30dp"
-                    android:text="3" />
-
-                <TextView
-                    android:id="@+id/textViewDay4"
-                    style="@style/roboto_semiBold_14_text_body_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="30dp"
-                    android:text="4" />
-
-                <TextView
-                    android:id="@+id/textViewDay5"
-                    style="@style/roboto_semiBold_14_text_body_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="30dp"
-                    android:text="5" />
-
-                <TextView
-                    android:id="@+id/textViewDay6"
-                    style="@style/roboto_semiBold_14_text_body_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="6" />
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-    </ScrollView>
+            android:button="@android:color/transparent"
+            android:text="@string/today"
+            android:textAlignment="center"
+            android:textAppearance="@style/roboto_medium_14"
+            android:textColor="@color/text_body_text" />
+    </RadioGroup>
 
     <TableLayout
         android:id="@+id/bottomNavigation"
