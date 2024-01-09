@@ -81,7 +81,6 @@ class SettingsActivity : AppCompatActivity() {
 
             val confirmButton = view.findViewById<TextView>(R.id.buttonBlock)
             confirmButton.setOnClickListener {
-                /////
                 dialog.dismiss()
             }
 

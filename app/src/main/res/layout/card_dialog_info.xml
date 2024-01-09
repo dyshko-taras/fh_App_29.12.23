@@ -24,6 +24,7 @@
 
 
             <TextView
+                android:id="@+id/textViewDateCard"
                 style="@style/roboto_regular_16_text_body_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -37,6 +38,7 @@
                 android:background="@color/layer3" />
 
             <TextView
+                android:id="@+id/textViewTimeCard"
                 style="@style/roboto_regular_16_text_body_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -46,22 +48,24 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonCancelWindowCard"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@drawable/selector_button_close"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        
+
+
         <TextView
-            android:id="@+id/textView2112"
+            android:id="@+id/textViewLeagueNameCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="League name"
             android:layout_marginTop="8dp"
+            android:text="League name"
+            style="@style/roboto_semiBold_14_text_body_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat" />
-
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
@@ -81,19 +85,24 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/textViewTeamHomeScore"
                     style="@style/roboto_semiBold_42"
+                    android:textColor="@color/text_body_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0" />
 
                 <TextView
                     style="@style/roboto_semiBold_42"
+                    android:textColor="@color/text_body_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-" />
 
                 <TextView
+                    android:id="@+id/textViewTeamAwayScore"
                     style="@style/roboto_semiBold_42"
+                    android:textColor="@color/text_body_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0" />
@@ -122,8 +131,10 @@
             app:srcCompat="@drawable/icon_team2" />
 
         <TextView
+            android:id="@+id/textViewHomeTeamCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/roboto_regular_16_text_body_text"
             android:layout_marginTop="15dp"
             android:text="Team 1"
             app:layout_constraintEnd_toEndOf="@+id/imageView4"
@@ -132,9 +143,11 @@
 
 
         <TextView
+            android:id="@+id/textViewAwayTeamCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            style="@style/roboto_regular_16_text_body_text"
             android:text="Team 2"
             app:layout_constraintEnd_toEndOf="@+id/imageView5"
             app:layout_constraintStart_toStartOf="@+id/imageView5"
@@ -149,10 +162,11 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonNotificationShareCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/button_accept"
-                android:text="Share"
+                android:text="@string/notification"
                 android:layout_gravity="center"/>
         </FrameLayout>
 

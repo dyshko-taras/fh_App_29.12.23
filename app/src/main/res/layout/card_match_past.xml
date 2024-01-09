@@ -11,6 +11,7 @@
     tools:ignore="RtlSymmetry">
 
     <LinearLayout
+        android:id="@+id/linearLayoutMatchUpcoming"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -22,6 +23,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/textViewLeagueNameMatchUpcoming"
                 style="@style/roboto_regular_14_text_secondary_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,6 +61,7 @@
                 app:srcCompat="@drawable/icon_match2" />
 
             <TextView
+                android:id="@+id/textViewTeamHomeMatchUpcoming"
                 style="@style/roboto_regular_16_text_body_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,6 +72,7 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
             <TextView
+                android:id="@+id/textViewAwayTeamMatchUpcoming"
                 style="@style/roboto_regular_16_text_body_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -79,7 +83,7 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textViewTimeMatchUpcoming"
                 style="@style/roboto_semiBold_42"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
