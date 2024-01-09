@@ -14,18 +14,13 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class MatchViewModel(application: Application) : AndroidViewModel(application) {
+class MatchPastViewModel(application: Application) : AndroidViewModel(application) {
 
     private val TAG = "MatchViewModel1"
     private val matchDatabase = AppDatabase.getDatabase(application)
     private val matchRepository = MatchRepository(matchDatabase.matchDao())
-    private var apiFactory = ApiFactory()
+    private var apiFactory = ApiFactory(application)
 
-    private var _matchesLiveData = matchRepository.getAllMatches()
-    val matchesLiveData: LiveData<List<Match>>
-        get() = _matchesLiveData
-
-    //
     fun getData() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -34,8 +29,8 @@ class MatchViewModel(application: Application) : AndroidViewModel(application) {
 
                 val listDate = mutableListOf<String>()
                 for (i in 0..6) {
-                    listDate.add(currentDate.plusDays(i.toLong()).format(formatter))
-//                    listDate.add(currentDate.minusDays(i.toLong()).format(formatter))
+//                    listDate.add(currentDate.plusDays(i.toLong()).format(formatter))
+                    listDate.add(currentDate.minusDays(i.toLong()).format(formatter))
                 }
 
                 matchDatabase.clearAllTables()
@@ -66,17 +61,14 @@ class MatchViewModel(application: Application) : AndroidViewModel(application) {
                         )
                     }
                 }
-
             } catch (e: Exception) {
                 Log.d(TAG, "----" + e.toString())
             }
         }
     }
 
-    //load matches by date and elapsed 0
-    fun loadByDateAndElapsedTime0(date: String): LiveData<List<Match>> {
-        return matchRepository.loadByDateAndElapsedTime0(date)
+    //load matches by date and elapsed not 0
+    fun loadByDateAndElapsedTimeNot0(date: String): LiveData<List<Match>> {
+        return matchRepository.loadByDateAndElapsedTimeNot0(date)
     }
-//
-
 }

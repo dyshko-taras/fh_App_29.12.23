@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.game.game.R
 import com.game.game.data.Match
 import com.game.game.tools.RecyclerViewAdapterMatchUpcoming
-import com.game.game.viewmodel.MatchViewModel
+import com.game.game.viewmodel.MatchUpcomingViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -27,7 +27,7 @@ class MatchUpcomingActivity : AppCompatActivity() {
 
     private lateinit var buttonMatchPast: ImageView
     private lateinit var buttonMatchSetting: ImageView
-    private lateinit var matchViewModel: MatchViewModel
+    private lateinit var viewModel: MatchUpcomingViewModel
     private lateinit var listOfTextViewDays: List<androidx.appcompat.widget.AppCompatCheckedTextView>
     private lateinit var textViewDay0: androidx.appcompat.widget.AppCompatCheckedTextView
     private lateinit var textViewDay1: androidx.appcompat.widget.AppCompatCheckedTextView
@@ -49,12 +49,9 @@ class MatchUpcomingActivity : AppCompatActivity() {
         setTextViewDays()
         setListeners()
 
+        viewModel = ViewModelProvider(this).get(MatchUpcomingViewModel::class.java)
 
-        Log.d(TAG, "onCreate: ")
-
-        matchViewModel = ViewModelProvider(this).get(MatchViewModel::class.java)
-
-        matchViewModel.getData()
+        viewModel.getData()
         textViewDay0.performClick()
     }
 
@@ -88,7 +85,6 @@ class MatchUpcomingActivity : AppCompatActivity() {
             textViewDay6
         )
 
-
         recyclerView = findViewById(R.id.recyclerView)
     }
 
@@ -111,7 +107,7 @@ class MatchUpcomingActivity : AppCompatActivity() {
 
                 Log.d(TAG, "setListeners: $i")
                 val dataString = listOfDates[i]
-                matchViewModel.loadByDateAndElapsedTime0(dataString).observe(
+                viewModel.loadByDateAndElapsedTime0(dataString).observe(
                     this
                 ) {
                     val recyclerViewAdapter = RecyclerViewAdapterMatchUpcoming(it, clickListener)
@@ -148,8 +144,8 @@ class MatchUpcomingActivity : AppCompatActivity() {
             val textViewTimeCard = view.findViewById<TextView>(R.id.textViewTimeCard)
             textViewTimeCard.text = it.time
 
-            val textViewLeagueData = view.findViewById<TextView>(R.id.textViewLeagueNameCard)
-            textViewLeagueData.text = it.league
+            val textViewLeagueNameCard = view.findViewById<TextView>(R.id.textViewLeagueNameCard)
+            textViewLeagueNameCard.text = it.league
 
             val textViewHomeTeamCard = view.findViewById<TextView>(R.id.textViewHomeTeamCard)
             textViewHomeTeamCard.text = it.homeTeam

@@ -21,7 +21,7 @@ class LoadActivity : AppCompatActivity() {
         } else {
             GlobalScope.launch {
                 delay(1000)
-                LoadActivity2.launch(this@LoadActivity)
+                MatchUpcomingActivity.launch(this@LoadActivity)
             }
         }
     }

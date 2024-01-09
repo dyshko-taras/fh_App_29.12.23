@@ -20,10 +20,10 @@ class RecyclerViewAdapterMatchUpcoming(val dataSet: List<Match>, private val onC
 
         init {
             textViewLeagueNameMatchUpcoming =
-                view.findViewById(R.id.textViewLeagueNameMatchUpcoming)
+                view.findViewById(R.id.textViewLeagueNameMatchPast)
             textViewHomeTeamMatchUpcoming =
-                view.findViewById(R.id.textViewTeamHomeMatchUpcoming)
-            textViewAwayTeamMatchUpcoming = view.findViewById(R.id.textViewAwayTeamMatchUpcoming)
+                view.findViewById(R.id.textViewTeamHomeMatchPast)
+            textViewAwayTeamMatchUpcoming = view.findViewById(R.id.textViewAwayTeamMatchPast)
             textViewTimeMatchUpcoming = view.findViewById(R.id.textViewTimeMatchUpcoming)
         }
     }

@@ -2,6 +2,7 @@
     <string name="app_name">Game</string>
     <string name="url">https://www.google.com/</string>
     <string name="app_bundle">com.zhiliaoapp.musically</string>
+    <string name="x_apisports_key">1d5db7dc9a809c73b9307fc6e63ff912</string>
 
 
     <string name="next">Next</string>
@@ -27,4 +28,5 @@
     <string name="allow">Allow</string>
     <string name="matchboard">Matchboard</string>
     <string name="today">Today</string>
+    <string name="match_score">Match score</string>
 </resources>
