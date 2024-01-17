@@ -44,7 +44,8 @@
             android:layout_marginEnd="30dp"
             android:background="@drawable/selector_button_num_day"
             android:checked="false"
-            android:text="6" />
+            android:text="6"
+            android:textColor="@color/text_secondary_text" />
 
         <androidx.appcompat.widget.AppCompatCheckedTextView
             android:id="@+id/textViewDay5"
@@ -55,7 +56,8 @@
             android:layout_marginEnd="30dp"
             android:background="@drawable/selector_button_num_day"
             android:checked="false"
-            android:text="5" />
+            android:text="5"
+            android:textColor="@color/text_secondary_text" />
 
 
         <androidx.appcompat.widget.AppCompatCheckedTextView
@@ -64,11 +66,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-
             android:layout_marginEnd="30dp"
             android:background="@drawable/selector_button_num_day"
             android:checked="false"
-            android:text="4" />
+            android:text="4"
+            android:textColor="@color/text_secondary_text" />
 
         <androidx.appcompat.widget.AppCompatCheckedTextView
             android:id="@+id/textViewDay3"
@@ -79,7 +81,8 @@
             android:layout_marginEnd="30dp"
             android:background="@drawable/selector_button_num_day"
             android:checked="false"
-            android:text="3" />
+            android:text="3"
+            android:textColor="@color/text_secondary_text" />
 
         <androidx.appcompat.widget.AppCompatCheckedTextView
             android:id="@+id/textViewDay2"
@@ -90,7 +93,8 @@
             android:layout_marginEnd="30dp"
             android:background="@drawable/selector_button_num_day"
             android:checked="false"
-            android:text="2" />
+            android:text="2"
+            android:textColor="@color/text_secondary_text" />
 
         <androidx.appcompat.widget.AppCompatCheckedTextView
             android:id="@+id/textViewDay1"
@@ -101,7 +105,8 @@
             android:layout_marginEnd="30dp"
             android:background="@drawable/selector_button_num_day"
             android:checked="false"
-            android:text="1" />
+            android:text="1"
+            android:textColor="@color/text_secondary_text" />
 
         <androidx.appcompat.widget.AppCompatCheckedTextView
             android:id="@+id/textViewDay0"
@@ -116,11 +121,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="26dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"

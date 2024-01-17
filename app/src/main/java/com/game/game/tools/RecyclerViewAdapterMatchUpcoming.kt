@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.game.game.R
 import com.game.game.data.Match
 
-class RecyclerViewAdapterMatchUpcoming(val dataSet: List<Match>, private val onClick: (Match) -> Unit) :
+class RecyclerViewAdapterMatchUpcoming(var dataSet: List<Match>, var onClick: (Match) -> Unit) :
     RecyclerView.Adapter<RecyclerViewAdapterMatchUpcoming.ViewHolder>() {
 
 

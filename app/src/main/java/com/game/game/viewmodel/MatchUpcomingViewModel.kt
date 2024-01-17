@@ -1,6 +1,8 @@
 package com.game.game.viewmodel
 
+import android.annotation.SuppressLint
 import android.app.Application
+import android.net.ConnectivityManager
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -11,8 +13,10 @@ import com.game.game.data.MatchRepository
 import com.game.game.web.ApiFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.Calendar
 
 class MatchUpcomingViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -20,20 +24,12 @@ class MatchUpcomingViewModel(application: Application) : AndroidViewModel(applic
     private val matchDatabase = AppDatabase.getDatabase(application)
     private val matchRepository = MatchRepository(matchDatabase.matchDao())
     private var apiFactory = ApiFactory(application)
+    private val listDate = mutableListOf<String>()
 
     fun getData() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val currentDate = LocalDate.now()
-                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-
-                val listDate = mutableListOf<String>()
-                for (i in 0..6) {
-                    listDate.add(currentDate.plusDays(i.toLong()).format(formatter))
-//                    listDate.add(currentDate.minusDays(i.toLong()).format(formatter))
-                }
-
-                matchDatabase.clearAllTables()
+                setListOfDates()
                 for (date in listDate) {
                     Log.d(TAG, date)
                     val responseJson = apiFactory.apiService.get(date)
@@ -70,5 +66,22 @@ class MatchUpcomingViewModel(application: Application) : AndroidViewModel(applic
     //load matches by date and elapsed 0
     fun loadByDateAndElapsedTime0(date: String): LiveData<List<Match>> {
         return matchRepository.loadByDateAndElapsedTime0(date)
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun setListOfDates() {
+        val formatterAll = SimpleDateFormat("yyyy-MM-dd")
+
+        for (i in 0..6) {
+            val date = Calendar.getInstance()
+            date.add(Calendar.DAY_OF_YEAR, i)
+//            date.add(Calendar.DAY_OF_YEAR, -i)
+            listDate.add(formatterAll.format(date.time))
+        }
+    }
+
+    //check internet connection
+    fun checkConnection(): Boolean {
+        var connectivityManager =
     }
 }

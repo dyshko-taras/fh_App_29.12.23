@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.game.game.R
 import com.game.game.data.Match
+import com.game.game.tools.AppUtils
 import com.game.game.tools.RecyclerViewAdapterMatchPast
 import com.game.game.viewmodel.MatchPastViewModel
 import java.time.LocalDate
@@ -51,7 +52,7 @@ class MatchPastActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(MatchPastViewModel::class.java)
 
-        viewModel.getData()
+//        viewModel.getData()
         textViewDay0.performClick()
     }
 
@@ -113,10 +114,22 @@ class MatchPastActivity : AppCompatActivity() {
                     recyclerView.adapter = recyclerViewAdapter
                     recyclerViewAdapter.notifyDataSetChanged()
                 }
+                //set text color for listOfTextViewDays
+                for (checkedTextView in listOfTextViewDays) {
+                    val textSecondaryColor = ContextCompat.getColor(this, R.color.text_secondary_text)
+                    checkedTextView.setTextColor(textSecondaryColor)
+                }
+                //set text color
+                if (checkedTextView.isChecked) {
+                    val textBodyColor = ContextCompat.getColor(this, R.color.text_body_text)
+                    checkedTextView.setTextColor(textBodyColor)
+                }
             }
         }
 
         clickListener = {
+            val match = it
+
             val builder = AlertDialog.Builder(this)
             val view = layoutInflater.inflate(R.layout.card_dialog_info, null)
 
@@ -127,7 +140,7 @@ class MatchPastActivity : AppCompatActivity() {
             val shareButton =
                 view.findViewById<AppCompatButton>(R.id.buttonNotificationShareCard)
             shareButton.setOnClickListener {
-                ///////////////////////
+                AppUtils.shareMatch(this, match)
                 dialog.dismiss()
             }
             shareButton.text = "Share"
@@ -139,28 +152,28 @@ class MatchPastActivity : AppCompatActivity() {
             dialog.show()
 
             val textViewDateCard = view.findViewById<TextView>(R.id.textViewDateCard)
-            textViewDateCard.text = it.date
+            textViewDateCard.text = match.date
 
             val textViewTimeCard = view.findViewById<TextView>(R.id.textViewTimeCard)
-            textViewTimeCard.text = it.time
+            textViewTimeCard.text = match.time
 
             val textViewLeagueNameCard = view.findViewById<TextView>(R.id.textViewLeagueNameCard)
-            textViewLeagueNameCard.text = it.league
+            textViewLeagueNameCard.text = match.league
 
             val textViewHomeTeamCard = view.findViewById<TextView>(R.id.textViewHomeTeamCard)
-            textViewHomeTeamCard.text = it.homeTeam
+            textViewHomeTeamCard.text = match.homeTeam
 
             val textViewAwayTeamCard = view.findViewById<TextView>(R.id.textViewAwayTeamCard)
-            textViewAwayTeamCard.text = it.awayTeam
+            textViewAwayTeamCard.text = match.awayTeam
 
             val textViewTeamHomeScore = view.findViewById<TextView>(R.id.textViewTeamHomeScore)
-            textViewTeamHomeScore.text = it.homeScore.toString()
+            textViewTeamHomeScore.text = match.homeScore.toString()
 
             val textViewTeamAwayScore = view.findViewById<TextView>(R.id.textViewTeamAwayScore)
-            textViewTeamAwayScore.text = it.awayScore.toString()
+            textViewTeamAwayScore.text = match.awayScore.toString()
 
             val colorOrange = ContextCompat.getColor(this, R.color.accent_primary_1)
-            if (it.homeScore > it.awayScore) {
+            if (match.homeScore > match.awayScore) {
                 textViewTeamHomeScore.setTextColor(colorOrange)
             } else {
                 textViewTeamAwayScore.setTextColor(colorOrange)

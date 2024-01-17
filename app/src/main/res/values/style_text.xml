@@ -14,19 +14,6 @@
         <item name="android:textColor">@color/text_secondary_text</item>
     </style>
 
-    <style name="roboto_medium_14">
-        <item name="android:fontFamily">@font/roboto_medium</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textAlignment">center</item>
-    </style>
-
-    <style name="roboto_semiBold_14_text_body_text">
-        <item name="android:fontFamily">@font/roboto_medium</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:textColor">@color/text_body_text</item>
-    </style>
-
     <style name="roboto_regular_16_text_body_text">
         <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textSize">16sp</item>
@@ -41,18 +28,31 @@
         <item name="android:textAlignment">center</item>
     </style>
 
+    <style name="roboto_medium_14">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="roboto_medium_14_text_secondary_text">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/text_secondary_text</item>
+    </style>
+
+    <style name="roboto_semiBold_14_text_body_text">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/text_body_text</item>
+    </style>
+
     <style name="roboto_semiBold_18">
         <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textAlignment">center</item>
     </style>
-
-    <style name="roboto_semiBold_42">
-        <item name="android:fontFamily">@font/roboto_medium</item>
-        <item name="android:textSize">42sp</item>
-        <item name="android:textAlignment">center</item>
-    </style>
-
 
     <style name="roboto_semiBold_18_text_white_text">
         <item name="android:fontFamily">@font/roboto_medium</item>
@@ -61,6 +61,11 @@
         <item name="android:textAlignment">center</item>
     </style>
 
+    <style name="roboto_semiBold_42">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">42sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
 
     <style name="roboto_bold_22_accent_primary_1">
         <item name="android:fontFamily">@font/roboto_bold</item>
