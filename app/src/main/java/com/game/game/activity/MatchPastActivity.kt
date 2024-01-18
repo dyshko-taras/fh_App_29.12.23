@@ -1,13 +1,17 @@
 package com.game.game.activity
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.CheckedTextView
 import android.widget.ImageView
+import android.widget.TableLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
@@ -18,27 +22,31 @@ import com.game.game.R
 import com.game.game.data.Match
 import com.game.game.tools.AppUtils
 import com.game.game.tools.RecyclerViewAdapterMatchPast
+import com.game.game.tools.RecyclerViewAdapterMatchUpcoming
 import com.game.game.viewmodel.MatchPastViewModel
+import com.game.game.viewmodel.MatchUpcomingViewModel
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayout
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.Calendar
 
 class MatchPastActivity : AppCompatActivity() {
 
     private var TAG = "MatchPastActivity1"
 
+    private lateinit var viewModel: MatchPastViewModel
+
     private lateinit var buttonMatchUpcoming: ImageView
     private lateinit var buttonMatchSetting: ImageView
-    private lateinit var viewModel: MatchPastViewModel
-    private lateinit var listOfTextViewDays: List<androidx.appcompat.widget.AppCompatCheckedTextView>
-    private lateinit var textViewDay0: androidx.appcompat.widget.AppCompatCheckedTextView
-    private lateinit var textViewDay1: androidx.appcompat.widget.AppCompatCheckedTextView
-    private lateinit var textViewDay2: androidx.appcompat.widget.AppCompatCheckedTextView
-    private lateinit var textViewDay3: androidx.appcompat.widget.AppCompatCheckedTextView
-    private lateinit var textViewDay4: androidx.appcompat.widget.AppCompatCheckedTextView
-    private lateinit var textViewDay5: androidx.appcompat.widget.AppCompatCheckedTextView
-    private lateinit var textViewDay6: androidx.appcompat.widget.AppCompatCheckedTextView
+
+    private lateinit var tabLayoutDays: TabLayout
+
+    private lateinit var bottomNavigation: TableLayout
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerViewAdapter: RecyclerViewAdapterMatchUpcoming
     private lateinit var clickListener: (Match) -> Unit
 
     private val listOfDates = mutableListOf<String>()
@@ -51,9 +59,22 @@ class MatchPastActivity : AppCompatActivity() {
         setListeners()
 
         viewModel = ViewModelProvider(this).get(MatchPastViewModel::class.java)
-
-//        viewModel.getData()
-        textViewDay0.performClick()
+        viewModel.getData()
+        viewModel.checkInternetConnection(this)
+        viewModel.isInternetConnection.observe(this) { isInternetConnection ->
+            Log.d(TAG, "isInternetConnection: $isInternetConnection")
+            if (!isInternetConnection) {
+                showSnackar("No internet connection", "Refresh", bottomNavigation, this) {
+                    viewModel.checkInternetConnection(this)
+                }
+            } else {
+                viewModel.getData()
+            }
+        }
+        val currentTab = tabLayoutDays.getTabAt(tabLayoutDays.tabCount - 1)
+        if (currentTab != null) {
+            selectTab(currentTab)
+        }
     }
 
     //launch activity fun
@@ -68,25 +89,13 @@ class MatchPastActivity : AppCompatActivity() {
         buttonMatchUpcoming = findViewById(R.id.buttonMatchUpcoming)
         buttonMatchSetting = findViewById(R.id.buttonMatchSetting)
 
-        textViewDay0 = findViewById(R.id.textViewDay0)
-        textViewDay1 = findViewById(R.id.textViewDay1)
-        textViewDay2 = findViewById(R.id.textViewDay2)
-        textViewDay3 = findViewById(R.id.textViewDay3)
-        textViewDay4 = findViewById(R.id.textViewDay4)
-        textViewDay5 = findViewById(R.id.textViewDay5)
-        textViewDay6 = findViewById(R.id.textViewDay6)
+        bottomNavigation = findViewById(R.id.bottomNavigation)
 
-        listOfTextViewDays = listOf(
-            textViewDay0,
-            textViewDay1,
-            textViewDay2,
-            textViewDay3,
-            textViewDay4,
-            textViewDay5,
-            textViewDay6
-        )
+        tabLayoutDays = findViewById(R.id.tabLayoutDays)
 
         recyclerView = findViewById(R.id.recyclerView)
+        recyclerViewAdapter = RecyclerViewAdapterMatchUpcoming(emptyList(), {})
+        recyclerView.adapter = recyclerViewAdapter
     }
 
     private fun setListeners() {
@@ -97,35 +106,15 @@ class MatchPastActivity : AppCompatActivity() {
             SettingsActivity.launch(this)
         }
 
-        for (i in 0..6) {
-            listOfTextViewDays[i].setOnClickListener {
-                for (checkedTextView in listOfTextViewDays) {
-                    checkedTextView.isChecked = false
-                }
-                val checkedTextView = it as CheckedTextView
-                checkedTextView.isChecked = !checkedTextView.isChecked
-
-                Log.d(TAG, "setListeners: $i")
-                val dataString = listOfDates[i]
-                viewModel.loadByDateAndElapsedTimeNot0(dataString).observe(
-                    this
-                ) {
-                    val recyclerViewAdapter = RecyclerViewAdapterMatchPast(it, clickListener)
-                    recyclerView.adapter = recyclerViewAdapter
-                    recyclerViewAdapter.notifyDataSetChanged()
-                }
-                //set text color for listOfTextViewDays
-                for (checkedTextView in listOfTextViewDays) {
-                    val textSecondaryColor = ContextCompat.getColor(this, R.color.text_secondary_text)
-                    checkedTextView.setTextColor(textSecondaryColor)
-                }
-                //set text color
-                if (checkedTextView.isChecked) {
-                    val textBodyColor = ContextCompat.getColor(this, R.color.text_body_text)
-                    checkedTextView.setTextColor(textBodyColor)
-                }
+        tabLayoutDays.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                selectTab(tab)
             }
-        }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
 
         clickListener = {
             val match = it
@@ -181,22 +170,67 @@ class MatchPastActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    private fun selectTab(tab: TabLayout.Tab) {
+        Log.d(TAG, "addOnTabSelectedListener: ${tab.position}")
+        val dataString = listOfDates[tab.position]
+        viewModel.loadByDateAndElapsedTimeNot0(dataString)
+            .observe(this@MatchPastActivity) {
+                recyclerViewAdapter.dataSet = it
+                recyclerViewAdapter.onClick = clickListener
+                Log.d(TAG, "setListeners: $it")
+                recyclerViewAdapter.notifyDataSetChanged()
+            }
+    }
+
     override fun onBackPressed() {
         finishAffinity()
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun setTextViewDays() {
-        val currentDate = LocalDate.now()
-        val formatter = DateTimeFormatter.ofPattern("d")
-        val formatterAll = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val formatter = SimpleDateFormat("d")
+        val formatterAll = SimpleDateFormat("yyyy-MM-dd")
 
-        for (i in 0..6) {
+        for (i in 6 downTo 0) {
+            val tab = tabLayoutDays.getTabAt(Math.abs(i - 6))
+            val date = Calendar.getInstance()
+            date.add(Calendar.DAY_OF_YEAR, -i)
             if (i != 0) {
-                listOfTextViewDays[i].text = currentDate.minusDays(i.toLong()).format(formatter)
+                tab?.text = formatter.format(date.time)
             }
-            var date = currentDate.minusDays(i.toLong()).format(formatterAll).toString()
-            Log.d(TAG, date)
-            listOfDates.add(date)
+            val dateStr = formatterAll.format(date.time)
+            Log.d(TAG, dateStr)
+            listOfDates.add(dateStr)
         }
+    }
+
+    private fun showSnackar(
+        message: String,
+        nameButton: String,
+        view: View,
+        context: Context,
+        listener: View.OnClickListener
+    ) {
+        val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE)
+        val snackbarView = snackbar.view
+
+        // Зміна фону Snackbar
+        snackbar.setBackgroundTint(ContextCompat.getColor(context, R.color.accent_primary_1))
+
+        snackbar.setAnchorView(view)
+
+        // Зміна кольору та розміру тексту Snackbar
+        val textView =
+            snackbarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
+        textView.setTextAppearance(R.style.roboto_regular_14_text_white_text)
+
+        val textButton =
+            snackbarView.findViewById(com.google.android.material.R.id.snackbar_action) as TextView
+        textButton.setTextAppearance(R.style.roboto_semiBold_14_accent_secondary_2)
+
+        snackbar.setAction(nameButton, listener)
+
+        snackbar.show()
     }
 }

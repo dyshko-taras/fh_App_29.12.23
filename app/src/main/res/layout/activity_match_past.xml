@@ -24,100 +24,163 @@
             android:text="@string/match_score" />
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
-        android:id="@+id/linearLayoutDay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:gravity="center"
-        android:orientation="horizontal"
+<!--    <LinearLayout-->
+<!--        android:id="@+id/linearLayoutDay"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="22dp"-->
+<!--        android:gravity="center"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/toolbar">-->
+
+<!--        <androidx.appcompat.widget.AppCompatCheckedTextView-->
+<!--            android:id="@+id/textViewDay6"-->
+<!--            style="@style/roboto_semiBold_14_text_body_text"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginEnd="30dp"-->
+<!--            android:background="@drawable/selector_button_num_day"-->
+<!--            android:checked="false"-->
+<!--            android:text="6"-->
+<!--            android:textColor="@color/text_secondary_text" />-->
+
+<!--        <androidx.appcompat.widget.AppCompatCheckedTextView-->
+<!--            android:id="@+id/textViewDay5"-->
+<!--            style="@style/roboto_semiBold_14_text_body_text"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginEnd="30dp"-->
+<!--            android:background="@drawable/selector_button_num_day"-->
+<!--            android:checked="false"-->
+<!--            android:text="5"-->
+<!--            android:textColor="@color/text_secondary_text" />-->
+
+
+<!--        <androidx.appcompat.widget.AppCompatCheckedTextView-->
+<!--            android:id="@+id/textViewDay4"-->
+<!--            style="@style/roboto_semiBold_14_text_body_text"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginEnd="30dp"-->
+<!--            android:background="@drawable/selector_button_num_day"-->
+<!--            android:checked="false"-->
+<!--            android:text="4"-->
+<!--            android:textColor="@color/text_secondary_text" />-->
+
+<!--        <androidx.appcompat.widget.AppCompatCheckedTextView-->
+<!--            android:id="@+id/textViewDay3"-->
+<!--            style="@style/roboto_semiBold_14_text_body_text"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginEnd="30dp"-->
+<!--            android:background="@drawable/selector_button_num_day"-->
+<!--            android:checked="false"-->
+<!--            android:text="3"-->
+<!--            android:textColor="@color/text_secondary_text" />-->
+
+<!--        <androidx.appcompat.widget.AppCompatCheckedTextView-->
+<!--            android:id="@+id/textViewDay2"-->
+<!--            style="@style/roboto_semiBold_14_text_body_text"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginEnd="30dp"-->
+<!--            android:background="@drawable/selector_button_num_day"-->
+<!--            android:checked="false"-->
+<!--            android:text="2"-->
+<!--            android:textColor="@color/text_secondary_text" />-->
+
+<!--        <androidx.appcompat.widget.AppCompatCheckedTextView-->
+<!--            android:id="@+id/textViewDay1"-->
+<!--            style="@style/roboto_semiBold_14_text_body_text"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginEnd="30dp"-->
+<!--            android:background="@drawable/selector_button_num_day"-->
+<!--            android:checked="false"-->
+<!--            android:text="1"-->
+<!--            android:textColor="@color/text_secondary_text" />-->
+
+<!--        <androidx.appcompat.widget.AppCompatCheckedTextView-->
+<!--            android:id="@+id/textViewDay0"-->
+<!--            style="@style/roboto_semiBold_14_text_body_text"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:background="@drawable/selector_button_num_day"-->
+<!--            android:checked="true"-->
+<!--            android:text="@string/today" />-->
+<!--    </LinearLayout>-->
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutDays"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:background="@color/background_мain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:tabIndicatorColor="@color/accent_primary_1"
+        app:tabMinWidth="50dp"
+        app:tabPaddingEnd="-2dp"
+        app:tabPaddingStart="-2dp"
+        app:tabSelectedTextAppearance="@style/roboto_semiBold_14_text_body_text"
+        app:tabSelectedTextColor="@color/text_body_text"
+        app:tabTextAppearance="@style/roboto_medium_14_text_secondary_text"
+        app:tabTextColor="@color/text_secondary_text">
 
-        <androidx.appcompat.widget.AppCompatCheckedTextView
-            android:id="@+id/textViewDay6"
-            style="@style/roboto_semiBold_14_text_body_text"
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="30dp"
-            android:background="@drawable/selector_button_num_day"
-            android:checked="false"
-            android:text="6"
-            android:textColor="@color/text_secondary_text" />
+            android:text="6" />
 
-        <androidx.appcompat.widget.AppCompatCheckedTextView
-            android:id="@+id/textViewDay5"
-            style="@style/roboto_semiBold_14_text_body_text"
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="30dp"
-            android:background="@drawable/selector_button_num_day"
-            android:checked="false"
-            android:text="5"
-            android:textColor="@color/text_secondary_text" />
+            android:text="5" />
 
 
-        <androidx.appcompat.widget.AppCompatCheckedTextView
-            android:id="@+id/textViewDay4"
-            style="@style/roboto_semiBold_14_text_body_text"
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="30dp"
-            android:background="@drawable/selector_button_num_day"
-            android:checked="false"
-            android:text="4"
-            android:textColor="@color/text_secondary_text" />
+            android:text="4" />
 
-        <androidx.appcompat.widget.AppCompatCheckedTextView
-            android:id="@+id/textViewDay3"
-            style="@style/roboto_semiBold_14_text_body_text"
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="30dp"
-            android:background="@drawable/selector_button_num_day"
-            android:checked="false"
-            android:text="3"
-            android:textColor="@color/text_secondary_text" />
+            android:text="3" />
 
-        <androidx.appcompat.widget.AppCompatCheckedTextView
-            android:id="@+id/textViewDay2"
-            style="@style/roboto_semiBold_14_text_body_text"
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="30dp"
-            android:background="@drawable/selector_button_num_day"
-            android:checked="false"
-            android:text="2"
-            android:textColor="@color/text_secondary_text" />
+            android:text="2" />
 
-        <androidx.appcompat.widget.AppCompatCheckedTextView
-            android:id="@+id/textViewDay1"
-            style="@style/roboto_semiBold_14_text_body_text"
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="30dp"
-            android:background="@drawable/selector_button_num_day"
-            android:checked="false"
-            android:text="1"
-            android:textColor="@color/text_secondary_text" />
+            android:text="1" />
 
-        <androidx.appcompat.widget.AppCompatCheckedTextView
-            android:id="@+id/textViewDay0"
-            style="@style/roboto_semiBold_14_text_body_text"
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/selector_button_num_day"
-            android:checked="true"
             android:text="@string/today" />
-    </LinearLayout>
+
+    </com.google.android.material.tabs.TabLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -130,7 +193,7 @@
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayoutDay"
+        app:layout_constraintTop_toBottomOf="@id/tabLayoutDays"
         app:layout_constraintVertical_bias="0.0"
         tools:itemCount="6"
         tools:listitem="@layout/card_match_past" />

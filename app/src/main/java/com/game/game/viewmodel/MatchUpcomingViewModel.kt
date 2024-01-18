@@ -2,10 +2,13 @@ package com.game.game.viewmodel
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.content.Context
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.game.game.data.AppDatabase
 import com.game.game.data.Match
@@ -35,6 +38,7 @@ class MatchUpcomingViewModel(application: Application) : AndroidViewModel(applic
                     val responseJson = apiFactory.apiService.get(date)
                     if (responseJson.isSuccessful) {
                         Log.d(TAG, date + " " + responseJson.body()?.response?.size.toString())
+                        val listOfMatches = mutableListOf<Match>()
                         responseJson.body()?.response?.forEach { responseData ->
                             val match = Match(
                                 0,
@@ -47,9 +51,9 @@ class MatchUpcomingViewModel(application: Application) : AndroidViewModel(applic
                                 responseData.goalsData?.away ?: 0,
                                 responseData.fixture?.status?.elapsed ?: 0
                             )
-                            matchRepository.insertAll(match)
+                            listOfMatches.add(match)
                         }
-//                        Log.d(TAG, "Request successful. HTTP status code: ${responseJson.code()}")
+                        matchRepository.insertAll(*listOfMatches.toTypedArray())
                     } else {
                         Log.d(
                             TAG,
@@ -80,8 +84,19 @@ class MatchUpcomingViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
-    //check internet connection
-    fun checkConnection(): Boolean {
-        var connectivityManager =
+    private val isInternetConnectionLD: MutableLiveData<Boolean> = MutableLiveData()
+
+    val isInternetConnection: LiveData<Boolean>
+        get() = isInternetConnectionLD
+
+    fun checkInternetConnection(context: Context) {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        connectivityManager?.let {
+            val activeNetworkInfo = it.activeNetworkInfo
+            isInternetConnectionLD.postValue(activeNetworkInfo?.isConnected ?: false)
+        } ?: run {
+            isInternetConnectionLD.postValue(false)
+        }
     }
 }

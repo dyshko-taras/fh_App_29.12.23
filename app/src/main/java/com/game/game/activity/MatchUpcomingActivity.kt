@@ -1,22 +1,28 @@
 package com.game.game.activity
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.TableLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.game.game.R
 import com.game.game.data.Match
 import com.game.game.tools.RecyclerViewAdapterMatchUpcoming
 import com.game.game.viewmodel.MatchUpcomingViewModel
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -26,11 +32,14 @@ class MatchUpcomingActivity : AppCompatActivity() {
 
     private var TAG = "MatchUpcomingActivity1"
 
-    private lateinit var buttonMatchPast: ImageView
-    private lateinit var buttonMatchSetting: ImageView
     private lateinit var viewModel: MatchUpcomingViewModel
 
+    private lateinit var buttonMatchPast: ImageView
+    private lateinit var buttonMatchSetting: ImageView
+
     private lateinit var tabLayoutDays: TabLayout
+
+    private lateinit var bottomNavigation: TableLayout
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var recyclerViewAdapter: RecyclerViewAdapterMatchUpcoming
@@ -47,6 +56,17 @@ class MatchUpcomingActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(MatchUpcomingViewModel::class.java)
         viewModel.getData()
+        viewModel.checkInternetConnection(this)
+        viewModel.isInternetConnection.observe(this) { isInternetConnection ->
+            Log.d(TAG, "isInternetConnection: $isInternetConnection")
+            if (!isInternetConnection) {
+                showSnackar("No internet connection", "Refresh", bottomNavigation, this) {
+                    viewModel.checkInternetConnection(this)
+                }
+            } else {
+                viewModel.getData()
+            }
+        }
 
         val currentTab = tabLayoutDays.getTabAt(tabLayoutDays.selectedTabPosition)
         if (currentTab != null) {
@@ -65,6 +85,8 @@ class MatchUpcomingActivity : AppCompatActivity() {
     private fun initViews() {
         buttonMatchPast = findViewById(R.id.buttonMatchPast)
         buttonMatchSetting = findViewById(R.id.buttonMatchSetting)
+
+        bottomNavigation = findViewById(R.id.bottomNavigation)
 
         tabLayoutDays = findViewById(R.id.tabLayoutDays)
 
@@ -164,5 +186,34 @@ class MatchUpcomingActivity : AppCompatActivity() {
             Log.d(TAG, dateStr)
             listOfDates.add(dateStr)
         }
+    }
+
+    private fun showSnackar(
+        message: String,
+        nameButton: String,
+        view: View,
+        context: Context,
+        listener: View.OnClickListener
+    ) {
+        val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE)
+        val snackbarView = snackbar.view
+
+        // Зміна фону Snackbar
+        snackbar.setBackgroundTint(ContextCompat.getColor(context, R.color.accent_primary_1))
+
+        snackbar.setAnchorView(view)
+
+        // Зміна кольору та розміру тексту Snackbar
+        val textView =
+            snackbarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
+        textView.setTextAppearance(R.style.roboto_regular_14_text_white_text)
+
+        val textButton =
+            snackbarView.findViewById(com.google.android.material.R.id.snackbar_action) as TextView
+        textButton.setTextAppearance(R.style.roboto_semiBold_14_accent_secondary_2)
+
+        snackbar.setAction(nameButton, listener)
+
+        snackbar.show()
     }
 }
