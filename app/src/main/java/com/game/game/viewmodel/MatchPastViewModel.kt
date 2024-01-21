@@ -28,6 +28,16 @@ class MatchPastViewModel(application: Application) : AndroidViewModel(applicatio
     private var apiFactory = ApiFactory(application)
     private val listDate = mutableListOf<String>()
 
+
+    private val isInternetConnectionLD: MutableLiveData<Boolean> = MutableLiveData()
+
+    val isInternetConnection: LiveData<Boolean>
+        get() = isInternetConnectionLD
+
+    init {
+        checkInternetConnection(application)
+    }
+
     fun getData() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -83,11 +93,6 @@ class MatchPastViewModel(application: Application) : AndroidViewModel(applicatio
             listDate.add(formatterAll.format(date.time))
         }
     }
-
-    private val isInternetConnectionLD: MutableLiveData<Boolean> = MutableLiveData()
-
-    val isInternetConnection: LiveData<Boolean>
-        get() = isInternetConnectionLD
 
     fun checkInternetConnection(context: Context) {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?

@@ -8,7 +8,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TableLayout
 import android.widget.TextView
@@ -55,16 +54,14 @@ class MatchUpcomingActivity : AppCompatActivity() {
         setListeners()
 
         viewModel = ViewModelProvider(this).get(MatchUpcomingViewModel::class.java)
-        viewModel.getData()
-        viewModel.checkInternetConnection(this)
         viewModel.isInternetConnection.observe(this) { isInternetConnection ->
             Log.d(TAG, "isInternetConnection: $isInternetConnection")
             if (!isInternetConnection) {
-                showSnackar("No internet connection", "Refresh", bottomNavigation, this) {
+                showSnackbar("No internet connection", "Refresh", bottomNavigation, this) {
                     viewModel.checkInternetConnection(this)
                 }
             } else {
-                viewModel.getData()
+//                viewModel.getData()
             }
         }
 
@@ -188,7 +185,7 @@ class MatchUpcomingActivity : AppCompatActivity() {
         }
     }
 
-    private fun showSnackar(
+    private fun showSnackbar(
         message: String,
         nameButton: String,
         view: View,

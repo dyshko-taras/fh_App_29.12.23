@@ -1,5 +1,6 @@
 package com.game.game.tools
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.game.game.R
 import com.game.game.data.Match
 
-class RecyclerViewAdapterMatchPast(val dataSet: List<Match>, private val onClick: (Match) -> Unit) :
+class RecyclerViewAdapterMatchPast(var dataSet: List<Match>, var onClick: (Match) -> Unit) :
     RecyclerView.Adapter<RecyclerViewAdapterMatchPast.ViewHolder>() {
 
 
@@ -19,8 +20,6 @@ class RecyclerViewAdapterMatchPast(val dataSet: List<Match>, private val onClick
         val textViewAwayTeamMatchPast: TextView
         val textViewTeamHomeScoreMatchPast : TextView
         val textViewAwayTeamScoreMatchPast : TextView
-
-
 
         init {
             textViewLeagueNameMatchPast = view.findViewById(R.id.textViewLeagueNameMatchPast)
@@ -40,21 +39,35 @@ class RecyclerViewAdapterMatchPast(val dataSet: List<Match>, private val onClick
     override fun getItemCount() = dataSet.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textViewLeagueNameMatchPast.text = dataSet[position].league
-        holder.textViewHomeTeamMatchPast.text = dataSet[position].homeTeam
-        holder.textViewAwayTeamMatchPast.text = dataSet[position].awayTeam
-        holder.textViewTeamHomeScoreMatchPast.text = dataSet[position].homeScore.toString()
-        holder.textViewAwayTeamScoreMatchPast.text = dataSet[position].awayScore.toString()
+
+        var match = dataSet[position]
+        Log.d("TAG1", "${match.homeTeam}_${match.homeScore}_> ${match.awayTeam}_${match.awayScore}_")
+
+        holder.textViewLeagueNameMatchPast.text = match.league
+        holder.textViewHomeTeamMatchPast.text = match.homeTeam
+        holder.textViewAwayTeamMatchPast.text = match.awayTeam
+        holder.textViewTeamHomeScoreMatchPast.text = match.homeScore.toString()
+        holder.textViewAwayTeamScoreMatchPast.text = match.awayScore.toString()
 
         val colorOrange = ContextCompat.getColor(holder.itemView.context, R.color.accent_primary_1)
+        val colorBlack = ContextCompat.getColor(holder.itemView.context, R.color.text_body_text)
 
-        if (dataSet[position].homeScore > dataSet[position].awayScore) {
+        if (match.homeScore > match.awayScore) {
             holder.textViewHomeTeamMatchPast.setTextColor(colorOrange)
             holder.textViewTeamHomeScoreMatchPast.setTextColor(colorOrange)
+//            Log.d("TAG1", "COLOR ORANGE")
+        } else if (match.homeScore < match.awayScore) {
+//            holder.textViewAwayTeamMatchPast.setTextColor(colorOrange)
+//            holder.textViewAwayTeamScoreMatchPast.setTextColor(colorOrange)
         } else {
-            holder.textViewAwayTeamMatchPast.setTextColor(colorOrange)
-            holder.textViewAwayTeamScoreMatchPast.setTextColor(colorOrange)
+//            holder.textViewHomeTeamMatchPast.setTextColor(colorBlack)
+//            holder.textViewTeamHomeScoreMatchPast.setTextColor(colorBlack)
+//            holder.textViewAwayTeamMatchPast.setTextColor(colorBlack)
+//            holder.textViewAwayTeamScoreMatchPast.setTextColor(colorBlack)
         }
-        holder.itemView.setOnClickListener { onClick(dataSet[position]) }
+        holder.textViewHomeTeamMatchPast.setTextColor(colorBlack)
+        holder.textViewTeamHomeScoreMatchPast.setTextColor(colorBlack)
+
+        holder.itemView.setOnClickListener { onClick(match) }
     }
 }

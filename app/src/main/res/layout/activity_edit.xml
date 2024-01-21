@@ -43,6 +43,7 @@
                 android:layout_width="148.62dp"
                 android:layout_height="148.22dp"
                 android:layout_marginTop="59dp"
+                android:contentDescription="@null"
                 app:srcCompat="@drawable/avatar_def" />
 
             <ImageView
@@ -50,8 +51,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-24dp"
-                android:background="@drawable/selector_button_add" />
-
+                android:background="@drawable/selector_button_add"
+                android:contentDescription="@null" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
@@ -82,15 +83,14 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonSaveChanges"
                 style="@style/button_accept"
-                android:layout_width="300dp"
-                android:layout_height="41dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="256dp"
+                android:layout_marginBottom="10dp"
                 android:text="@string/save_changes" />
 
         </LinearLayout>
 
-
     </ScrollView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

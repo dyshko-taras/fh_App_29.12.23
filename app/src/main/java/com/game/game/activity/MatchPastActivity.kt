@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.CheckedTextView
 import android.widget.ImageView
 import android.widget.TableLayout
 import android.widget.TextView
@@ -22,14 +21,10 @@ import com.game.game.R
 import com.game.game.data.Match
 import com.game.game.tools.AppUtils
 import com.game.game.tools.RecyclerViewAdapterMatchPast
-import com.game.game.tools.RecyclerViewAdapterMatchUpcoming
 import com.game.game.viewmodel.MatchPastViewModel
-import com.game.game.viewmodel.MatchUpcomingViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.Calendar
 
 class MatchPastActivity : AppCompatActivity() {
@@ -46,7 +41,7 @@ class MatchPastActivity : AppCompatActivity() {
     private lateinit var bottomNavigation: TableLayout
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var recyclerViewAdapter: RecyclerViewAdapterMatchUpcoming
+    private lateinit var recyclerViewAdapter: RecyclerViewAdapterMatchPast
     private lateinit var clickListener: (Match) -> Unit
 
     private val listOfDates = mutableListOf<String>()
@@ -59,16 +54,14 @@ class MatchPastActivity : AppCompatActivity() {
         setListeners()
 
         viewModel = ViewModelProvider(this).get(MatchPastViewModel::class.java)
-        viewModel.getData()
-        viewModel.checkInternetConnection(this)
         viewModel.isInternetConnection.observe(this) { isInternetConnection ->
             Log.d(TAG, "isInternetConnection: $isInternetConnection")
             if (!isInternetConnection) {
-                showSnackar("No internet connection", "Refresh", bottomNavigation, this) {
+                showSnackbar("No internet connection", "Refresh", bottomNavigation, this) {
                     viewModel.checkInternetConnection(this)
                 }
             } else {
-                viewModel.getData()
+//                viewModel.getData()
             }
         }
         val currentTab = tabLayoutDays.getTabAt(tabLayoutDays.tabCount - 1)
@@ -94,7 +87,7 @@ class MatchPastActivity : AppCompatActivity() {
         tabLayoutDays = findViewById(R.id.tabLayoutDays)
 
         recyclerView = findViewById(R.id.recyclerView)
-        recyclerViewAdapter = RecyclerViewAdapterMatchUpcoming(emptyList(), {})
+        recyclerViewAdapter = RecyclerViewAdapterMatchPast(emptyList(), {})
         recyclerView.adapter = recyclerViewAdapter
     }
 
@@ -132,7 +125,7 @@ class MatchPastActivity : AppCompatActivity() {
                 AppUtils.shareMatch(this, match)
                 dialog.dismiss()
             }
-            shareButton.text = "Share"
+            shareButton.text = getString(R.string.share)
 
             val cancelButton = view.findViewById<AppCompatButton>(R.id.buttonCancelWindowCard)
             cancelButton.setOnClickListener {
@@ -164,7 +157,7 @@ class MatchPastActivity : AppCompatActivity() {
             val colorOrange = ContextCompat.getColor(this, R.color.accent_primary_1)
             if (match.homeScore > match.awayScore) {
                 textViewTeamHomeScore.setTextColor(colorOrange)
-            } else {
+            } else if (match.homeScore < match.awayScore) {
                 textViewTeamAwayScore.setTextColor(colorOrange)
             }
         }
@@ -205,7 +198,7 @@ class MatchPastActivity : AppCompatActivity() {
         }
     }
 
-    private fun showSnackar(
+    private fun showSnackbar(
         message: String,
         nameButton: String,
         view: View,

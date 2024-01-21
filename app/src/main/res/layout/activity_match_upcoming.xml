@@ -47,43 +47,41 @@
             android:layout_height="wrap_content"
             android:text="@string/today" />
 
-
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabItem1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1" />
-
+            tools:text="1" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabItem2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2" />
+            tools:text="2" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabItem3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3" />
+            tools:text="3" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabItem4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4" />
+            tools:text="4" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabItem5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5" />
+            tools:text="5" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabItem6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6" />
+            tools:text="6" />
 
     </com.google.android.material.tabs.TabLayout>
 
@@ -101,9 +99,6 @@
         app:layout_constraintVertical_bias="0.0"
         tools:itemCount="6"
         tools:listitem="@layout/card_match_upcoming" />
-
-
-
 
     <TableLayout
         android:id="@+id/bottomNavigation"
@@ -127,6 +122,7 @@
                 android:id="@+id/buttonMatchUpcoming"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
+                android:contentDescription="@null"
                 android:scaleType="center"
                 android:src="@drawable/button_upcoming_press" />
 
@@ -134,6 +130,7 @@
                 android:id="@+id/buttonMatchPast"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
+                android:contentDescription="@null"
                 android:scaleType="center"
                 android:src="@drawable/button_past_def" />
 
@@ -141,6 +138,7 @@
                 android:id="@+id/buttonMatchSetting"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
+                android:contentDescription="@null"
                 android:scaleType="center"
                 android:src="@drawable/button_setting_def" />
             />

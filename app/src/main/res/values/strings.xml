@@ -29,4 +29,8 @@
     <string name="matchboard">Matchboard</string>
     <string name="today">Today</string>
     <string name="match_score">Match score</string>
+    <string name="name_mykola">Mykola</string>
+    <string name="dash">-</string>
+    <string name="share">Share</string>
+    <string name="_0">0</string>
 </resources>

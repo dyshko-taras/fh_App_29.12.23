@@ -11,34 +11,31 @@
     tools:ignore="RtlSymmetry">
 
     <LinearLayout
-        android:id="@+id/linearLayoutMatchPast"
+        android:id="@+id/linearLayoutMatchUpcoming"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <FrameLayout
+        <TextView
+            android:id="@+id/textViewLeagueNameMatchUpcoming"
+            style="@style/roboto_regular_14_text_secondary_text"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:background="@color/layer2"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textViewLeagueNameMatchPast"
-                style="@style/roboto_regular_14_text_secondary_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="15dp"
-                android:text="League name"
-                android:textColor="@color/text_body_text"
-                tools:ignore="RtlSymmetry" />
-        </FrameLayout>
+            android:paddingStart="22dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="22dp"
+            android:paddingBottom="13dp"
+            android:textAlignment="textStart"
+            android:textColor="@color/text_body_text"
+            tools:text="League name" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/layer3">
-
+            android:layout_height="wrap_content"
+            android:background="@color/layer3"
+            android:paddingBottom="26dp">
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -48,54 +45,63 @@
                 android:layout_marginTop="14dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/icon_match1" />
+                app:srcCompat="@drawable/icon_match1"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/textViewTeamHomeMatchUpcoming"
+                style="@style/roboto_regular_16_text_body_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="5dp"
+                android:textAlignment="textStart"
+                app:layout_constraintEnd_toStartOf="@+id/textViewTimeMatchUpcoming"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="@+id/imageView2"
+                tools:text="Team name 1" />
 
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="22dp"
-                android:layout_marginTop="9dp"
+                android:layout_marginTop="12dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2"
-                app:srcCompat="@drawable/icon_match2" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewTeamHomeMatchUpcoming"
+                app:srcCompat="@drawable/icon_match2"
+                android:contentDescription="@null" />
 
             <TextView
-                android:id="@+id/textViewTeamHomeMatchPast"
+                android:id="@+id/textViewAwayTeamMatchUpcoming"
                 style="@style/roboto_regular_16_text_body_text"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="3dp"
-                android:text="Team name 1"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toTopOf="@+id/imageView2" />
-
-            <TextView
-                android:id="@+id/textViewAwayTeamMatchPast"
-                style="@style/roboto_regular_16_text_body_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="14dp"
-                android:layout_marginTop="3dp"
-                android:text="Team name 2"
+                android:layout_marginEnd="5dp"
+                android:textAlignment="textStart"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textViewTimeMatchUpcoming"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
-                app:layout_constraintTop_toTopOf="@+id/imageView3" />
+                app:layout_constraintTop_toTopOf="@+id/imageView3"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="Team name 2" />
 
             <TextView
                 android:id="@+id/textViewTimeMatchUpcoming"
                 style="@style/roboto_semiBold_42"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
                 android:layout_marginEnd="21dp"
-                android:layout_marginBottom="32dp"
-                android:text="00:00"
                 android:textColor="@color/accent_primary_1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="00:00" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     </LinearLayout>
 

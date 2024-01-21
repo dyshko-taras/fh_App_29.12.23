@@ -19,11 +19,9 @@ class RecyclerViewAdapterMatchUpcoming(var dataSet: List<Match>, var onClick: (M
         val textViewTimeMatchUpcoming: TextView
 
         init {
-            textViewLeagueNameMatchUpcoming =
-                view.findViewById(R.id.textViewLeagueNameMatchPast)
-            textViewHomeTeamMatchUpcoming =
-                view.findViewById(R.id.textViewTeamHomeMatchPast)
-            textViewAwayTeamMatchUpcoming = view.findViewById(R.id.textViewAwayTeamMatchPast)
+            textViewLeagueNameMatchUpcoming = view.findViewById(R.id.textViewLeagueNameMatchUpcoming)
+            textViewHomeTeamMatchUpcoming = view.findViewById(R.id.textViewTeamHomeMatchUpcoming)
+            textViewAwayTeamMatchUpcoming = view.findViewById(R.id.textViewAwayTeamMatchUpcoming)
             textViewTimeMatchUpcoming = view.findViewById(R.id.textViewTimeMatchUpcoming)
         }
     }
@@ -37,11 +35,13 @@ class RecyclerViewAdapterMatchUpcoming(var dataSet: List<Match>, var onClick: (M
     override fun getItemCount() = dataSet.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textViewLeagueNameMatchUpcoming.text = dataSet[position].league
-        holder.textViewHomeTeamMatchUpcoming.text = dataSet[position].homeTeam
-        holder.textViewAwayTeamMatchUpcoming.text = dataSet[position].awayTeam
-        holder.textViewTimeMatchUpcoming.text = dataSet[position].time
+        var match = dataSet[position]
 
-        holder.itemView.setOnClickListener { onClick(dataSet[position]) }
+        holder.textViewLeagueNameMatchUpcoming.text = match.league
+        holder.textViewHomeTeamMatchUpcoming.text = match.homeTeam
+        holder.textViewAwayTeamMatchUpcoming.text = match.awayTeam
+        holder.textViewTimeMatchUpcoming.text = match.time
+
+        holder.itemView.setOnClickListener { onClick(match) }
     }
 }

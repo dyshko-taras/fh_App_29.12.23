@@ -7,7 +7,6 @@
     android:background="@color/background_мain"
     tools:context=".activity.SettingsActivity">
 
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -35,17 +34,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <ImageView
                 android:id="@+id/imageViewAvatar"
                 android:layout_width="116dp"
                 android:layout_height="116dp"
                 android:layout_marginTop="23dp"
+                android:contentDescription="@null"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/avatar_def" />
-
 
             <ImageView
                 android:id="@+id/buttonEdit"
@@ -53,6 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="-19dp"
                 android:background="@drawable/selector_button_edit"
+                android:contentDescription="@null"
                 app:layout_constraintBottom_toBottomOf="@+id/imageViewAvatar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -63,11 +62,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="Mykola"
+                android:text="@string/name_mykola"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/buttonEdit" />
-
 
             <LinearLayout
                 android:id="@+id/linearL"
@@ -95,6 +93,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@null"
                         app:srcCompat="@drawable/icon_notifivation" />
 
                     <TextView
@@ -109,6 +108,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@null"
                         app:srcCompat="@drawable/icon_arrow" />
                 </LinearLayout>
 
@@ -131,6 +131,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@null"
                         app:srcCompat="@drawable/icon_privacy_policy" />
 
                     <TextView
@@ -145,6 +146,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@null"
                         app:srcCompat="@drawable/icon_arrow" />
                 </LinearLayout>
 
@@ -167,6 +169,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@null"
                         app:srcCompat="@drawable/icon_share" />
 
                     <TextView
@@ -181,6 +184,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@null"
                         app:srcCompat="@drawable/icon_arrow" />
                 </LinearLayout>
 
@@ -203,6 +207,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@null"
                         app:srcCompat="@drawable/icon_notifivation" />
 
                     <TextView
@@ -217,6 +222,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@null"
                         app:srcCompat="@drawable/icon_arrow" />
                 </LinearLayout>
 
@@ -231,16 +237,18 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonDeleteData"
                 style="@style/button_accept"
-                android:layout_width="300dp"
-                android:layout_height="41dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="162dp"
+                android:layout_marginBottom="10dp"
                 android:text="@string/delete_data"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/linearL" />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
 
     <TableLayout
@@ -265,6 +273,7 @@
                 android:id="@+id/buttonMatchUpcoming"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
+                android:contentDescription="@null"
                 android:scaleType="center"
                 android:src="@drawable/button_upcoming_def" />
 
@@ -272,6 +281,7 @@
                 android:id="@+id/buttonMatchPast"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
+                android:contentDescription="@null"
                 android:scaleType="center"
                 android:src="@drawable/button_past_def" />
 
@@ -279,10 +289,12 @@
                 android:id="@+id/buttonMatchSetting"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
+                android:contentDescription="@null"
                 android:scaleType="center"
                 android:src="@drawable/button_setting_press" />
-        </TableRow>
-    </TableLayout>
 
+        </TableRow>
+
+    </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

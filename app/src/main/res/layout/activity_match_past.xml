@@ -24,101 +24,6 @@
             android:text="@string/match_score" />
     </androidx.appcompat.widget.Toolbar>
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/linearLayoutDay"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="22dp"-->
-<!--        android:gravity="center"-->
-<!--        android:orientation="horizontal"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/toolbar">-->
-
-<!--        <androidx.appcompat.widget.AppCompatCheckedTextView-->
-<!--            android:id="@+id/textViewDay6"-->
-<!--            style="@style/roboto_semiBold_14_text_body_text"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginEnd="30dp"-->
-<!--            android:background="@drawable/selector_button_num_day"-->
-<!--            android:checked="false"-->
-<!--            android:text="6"-->
-<!--            android:textColor="@color/text_secondary_text" />-->
-
-<!--        <androidx.appcompat.widget.AppCompatCheckedTextView-->
-<!--            android:id="@+id/textViewDay5"-->
-<!--            style="@style/roboto_semiBold_14_text_body_text"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginEnd="30dp"-->
-<!--            android:background="@drawable/selector_button_num_day"-->
-<!--            android:checked="false"-->
-<!--            android:text="5"-->
-<!--            android:textColor="@color/text_secondary_text" />-->
-
-
-<!--        <androidx.appcompat.widget.AppCompatCheckedTextView-->
-<!--            android:id="@+id/textViewDay4"-->
-<!--            style="@style/roboto_semiBold_14_text_body_text"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginEnd="30dp"-->
-<!--            android:background="@drawable/selector_button_num_day"-->
-<!--            android:checked="false"-->
-<!--            android:text="4"-->
-<!--            android:textColor="@color/text_secondary_text" />-->
-
-<!--        <androidx.appcompat.widget.AppCompatCheckedTextView-->
-<!--            android:id="@+id/textViewDay3"-->
-<!--            style="@style/roboto_semiBold_14_text_body_text"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginEnd="30dp"-->
-<!--            android:background="@drawable/selector_button_num_day"-->
-<!--            android:checked="false"-->
-<!--            android:text="3"-->
-<!--            android:textColor="@color/text_secondary_text" />-->
-
-<!--        <androidx.appcompat.widget.AppCompatCheckedTextView-->
-<!--            android:id="@+id/textViewDay2"-->
-<!--            style="@style/roboto_semiBold_14_text_body_text"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginEnd="30dp"-->
-<!--            android:background="@drawable/selector_button_num_day"-->
-<!--            android:checked="false"-->
-<!--            android:text="2"-->
-<!--            android:textColor="@color/text_secondary_text" />-->
-
-<!--        <androidx.appcompat.widget.AppCompatCheckedTextView-->
-<!--            android:id="@+id/textViewDay1"-->
-<!--            style="@style/roboto_semiBold_14_text_body_text"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginEnd="30dp"-->
-<!--            android:background="@drawable/selector_button_num_day"-->
-<!--            android:checked="false"-->
-<!--            android:text="1"-->
-<!--            android:textColor="@color/text_secondary_text" />-->
-
-<!--        <androidx.appcompat.widget.AppCompatCheckedTextView-->
-<!--            android:id="@+id/textViewDay0"-->
-<!--            style="@style/roboto_semiBold_14_text_body_text"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:background="@drawable/selector_button_num_day"-->
-<!--            android:checked="true"-->
-<!--            android:text="@string/today" />-->
-<!--    </LinearLayout>-->
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutDays"
         android:layout_width="wrap_content"
@@ -140,39 +45,39 @@
             android:id="@+id/tabItem0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6" />
+            tools:text="6" />
 
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabItem1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5" />
+            tools:text="5" />
 
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabItem2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4" />
+            tools:text="4" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabItem3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3" />
+            tools:text="3" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabItem4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2" />
+            tools:text="2" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabItem5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1" />
+            tools:text="1" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabItem6"
@@ -221,21 +126,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:scaleType="center"
-                android:src="@drawable/button_upcoming_def" />
+                android:src="@drawable/button_upcoming_def"
+                android:contentDescription="@null" />
 
             <ImageView
                 android:id="@+id/buttonMatchPast"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:scaleType="center"
-                android:src="@drawable/button_past_press" />
+                android:src="@drawable/button_past_press"
+                android:contentDescription="@null" />
 
             <ImageView
                 android:id="@+id/buttonMatchSetting"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:scaleType="center"
-                android:src="@drawable/button_setting_def" />
+                android:src="@drawable/button_setting_def"
+                android:contentDescription="@null" />
             />
         </TableRow>
     </TableLayout>
