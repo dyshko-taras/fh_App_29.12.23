@@ -17,6 +17,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.game.game.R
 import com.game.game.data.Match
 import com.game.game.tools.AppUtils
@@ -61,11 +62,12 @@ class MatchPastActivity : AppCompatActivity() {
                     viewModel.checkInternetConnection(this)
                 }
             } else {
-//                viewModel.getData()
+                viewModel.getData()
             }
         }
         val currentTab = tabLayoutDays.getTabAt(tabLayoutDays.tabCount - 1)
         if (currentTab != null) {
+            tabLayoutDays.selectTab(currentTab)
             selectTab(currentTab)
         }
     }
@@ -89,6 +91,9 @@ class MatchPastActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         recyclerViewAdapter = RecyclerViewAdapterMatchPast(emptyList(), {})
         recyclerView.adapter = recyclerViewAdapter
+
+        //fix recycler view animation
+        (recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
     }
 
     private fun setListeners() {
@@ -109,8 +114,7 @@ class MatchPastActivity : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
 
-        clickListener = {
-            val match = it
+        clickListener = { match ->
 
             val builder = AlertDialog.Builder(this)
             val view = layoutInflater.inflate(R.layout.card_dialog_info, null)
@@ -134,7 +138,14 @@ class MatchPastActivity : AppCompatActivity() {
             dialog.show()
 
             val textViewDateCard = view.findViewById<TextView>(R.id.textViewDateCard)
-            textViewDateCard.text = match.date
+
+            //make data yyyy-MM-dd to dd.MM.yyyy
+            val formatter = SimpleDateFormat("yyyy-MM-dd")
+            val date = formatter.parse(match.date)
+            formatter.applyPattern("dd.MM.yyyy")
+            val formattedDate = formatter.format(date!!)
+
+            textViewDateCard.text = formattedDate
 
             val textViewTimeCard = view.findViewById<TextView>(R.id.textViewTimeCard)
             textViewTimeCard.text = match.time
@@ -171,7 +182,7 @@ class MatchPastActivity : AppCompatActivity() {
             .observe(this@MatchPastActivity) {
                 recyclerViewAdapter.dataSet = it
                 recyclerViewAdapter.onClick = clickListener
-                Log.d(TAG, "setListeners: $it")
+//                Log.d(TAG, "setListeners: $it")
                 recyclerViewAdapter.notifyDataSetChanged()
             }
     }

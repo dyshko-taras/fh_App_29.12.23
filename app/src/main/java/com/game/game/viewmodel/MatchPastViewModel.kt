@@ -16,8 +16,6 @@ import com.game.game.web.ApiFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.Calendar
 
 class MatchPastViewModel(application: Application) : AndroidViewModel(application) {

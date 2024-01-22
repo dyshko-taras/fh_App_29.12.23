@@ -17,6 +17,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.game.game.R
 import com.game.game.data.Match
 import com.game.game.tools.RecyclerViewAdapterMatchUpcoming
@@ -61,7 +62,7 @@ class MatchUpcomingActivity : AppCompatActivity() {
                     viewModel.checkInternetConnection(this)
                 }
             } else {
-//                viewModel.getData()
+                viewModel.getData()
             }
         }
 
@@ -90,9 +91,12 @@ class MatchUpcomingActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         recyclerViewAdapter = RecyclerViewAdapterMatchUpcoming(emptyList(), {})
         recyclerView.adapter = recyclerViewAdapter
+
+        //fix recycler view animation
+        (recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "SimpleDateFormat")
     private fun setListeners() {
         buttonMatchPast.setOnClickListener {
             MatchPastActivity.launch(this)
@@ -111,7 +115,7 @@ class MatchUpcomingActivity : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
 
-        clickListener = {
+        clickListener = { match ->
             val builder = AlertDialog.Builder(this)
             val view = layoutInflater.inflate(R.layout.card_dialog_info, null)
 
@@ -133,20 +137,27 @@ class MatchUpcomingActivity : AppCompatActivity() {
             dialog.show()
 
             val textViewDateCard = view.findViewById<TextView>(R.id.textViewDateCard)
-            textViewDateCard.text = it.date
+
+            //make data yyyy-MM-dd to dd.MM.yyyy
+            val formatter = SimpleDateFormat("yyyy-MM-dd")
+            val date = formatter.parse(match.date)
+            formatter.applyPattern("dd.MM.yyyy")
+            val formattedDate = formatter.format(date!!)
+
+            textViewDateCard.text = formattedDate
 
             val textViewTimeCard = view.findViewById<TextView>(R.id.textViewTimeCard)
-            textViewTimeCard.text = it.time
+            textViewTimeCard.text = match.time
 
             val textViewLeagueNameCard =
                 view.findViewById<TextView>(R.id.textViewLeagueNameCard)
-            textViewLeagueNameCard.text = it.league
+            textViewLeagueNameCard.text = match.league
 
             val textViewHomeTeamCard = view.findViewById<TextView>(R.id.textViewHomeTeamCard)
-            textViewHomeTeamCard.text = it.homeTeam
+            textViewHomeTeamCard.text = match.homeTeam
 
             val textViewAwayTeamCard = view.findViewById<TextView>(R.id.textViewAwayTeamCard)
-            textViewAwayTeamCard.text = it.awayTeam
+            textViewAwayTeamCard.text = match.awayTeam
         }
     }
 
