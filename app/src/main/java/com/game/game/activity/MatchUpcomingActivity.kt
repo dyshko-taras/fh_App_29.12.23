@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.game.game.R
@@ -47,6 +48,8 @@ class MatchUpcomingActivity : AppCompatActivity() {
 
     private val listOfDates = mutableListOf<String>()
 
+    private var currentDate: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_match_upcoming)
@@ -55,6 +58,7 @@ class MatchUpcomingActivity : AppCompatActivity() {
         setListeners()
 
         viewModel = ViewModelProvider(this).get(MatchUpcomingViewModel::class.java)
+
         viewModel.isInternetConnection.observe(this) { isInternetConnection ->
             Log.d(TAG, "isInternetConnection: $isInternetConnection")
             if (!isInternetConnection) {
@@ -62,7 +66,7 @@ class MatchUpcomingActivity : AppCompatActivity() {
                     viewModel.checkInternetConnection(this)
                 }
             } else {
-                viewModel.getData()
+                viewModel.getData(currentDate)
             }
         }
 
@@ -91,9 +95,7 @@ class MatchUpcomingActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         recyclerViewAdapter = RecyclerViewAdapterMatchUpcoming(emptyList(), {})
         recyclerView.adapter = recyclerViewAdapter
-
-        //fix recycler view animation
-        (recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        (recyclerView.itemAnimator as? DefaultItemAnimator)?.changeDuration = 2000
     }
 
     @SuppressLint("NotifyDataSetChanged", "SimpleDateFormat")
@@ -164,12 +166,15 @@ class MatchUpcomingActivity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     private fun selectTab(tab: TabLayout.Tab) {
         Log.d(TAG, "addOnTabSelectedListener: ${tab.position}")
-        val dataString = listOfDates[tab.position]
-        viewModel.loadByDateAndElapsedTime0(dataString)
-            .observe(this@MatchUpcomingActivity) {
-                recyclerViewAdapter.dataSet = it
+        currentDate = listOfDates[tab.position]
+        viewModel.checkInternetConnection(this)
+        viewModel.loadByDateAndElapsedTime0(currentDate)
+            .observe(this@MatchUpcomingActivity) {matchList ->
+//                recyclerViewAdapter.dataSet = emptyList()
+//                recyclerViewAdapter.notifyDataSetChanged()
+                recyclerViewAdapter.dataSet = matchList
                 recyclerViewAdapter.onClick = clickListener
-                Log.d(TAG, "setListeners: $it")
+                Log.d(TAG, "1__ Info is empty: ${matchList.isEmpty()}")
                 recyclerViewAdapter.notifyDataSetChanged()
             }
     }
@@ -193,6 +198,8 @@ class MatchUpcomingActivity : AppCompatActivity() {
             val dateStr = formatterAll.format(date.time)
             Log.d(TAG, dateStr)
             listOfDates.add(dateStr)
+
+            currentDate = listOfDates[0]
         }
     }
 

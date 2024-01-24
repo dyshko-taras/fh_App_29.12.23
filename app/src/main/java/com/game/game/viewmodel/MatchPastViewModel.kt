@@ -36,38 +36,35 @@ class MatchPastViewModel(application: Application) : AndroidViewModel(applicatio
         checkInternetConnection(application)
     }
 
-    fun getData() {
+    fun getData(currentDate: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                setListOfDates()
-                for (date in listDate) {
-                    Log.d(TAG, date)
-                    val responseJson = apiFactory.apiService.get(date)
-                    if (responseJson.isSuccessful) {
-                        Log.d(TAG, date + " " + responseJson.body()?.response?.size.toString())
-                        val listOfMatches = mutableListOf<Match>()
-                        responseJson.body()?.response?.forEach { responseData ->
-                            val match = Match(
-                                0,
-                                responseData.league?.name ?: "null",
-                                responseData.fixture?.date?.substring(0, 10) ?: "null",
-                                responseData.fixture?.date?.substring(11, 16) ?: "null",
-                                responseData.teams?.home?.name ?: "null",
-                                responseData.teams?.away?.name ?: "null",
-                                responseData.goalsData?.home ?: 0,
-                                responseData.goalsData?.away ?: 0,
-                                responseData.fixture?.status?.elapsed ?: 0
-                            )
-                            listOfMatches.add(match)
-                        }
-                        matchRepository.insertAll(*listOfMatches.toTypedArray())
-//                        Log.d(TAG, "Request successful. HTTP status code: ${responseJson.code()}")
-                    } else {
-                        Log.d(
-                            TAG,
-                            "Request not successful. HTTP status code: ${responseJson.code()}"
+                Log.d(TAG, currentDate)
+                val responseJson = apiFactory.apiService.get(currentDate)
+                if (responseJson.isSuccessful) {
+                    Log.d(TAG, currentDate + " " + responseJson.body()?.response?.size.toString())
+                    val listOfMatches = mutableListOf<Match>()
+                    responseJson.body()?.response?.forEach { responseData ->
+                        val match = Match(
+                            0,
+                            responseData.league?.name ?: "null",
+                            responseData.fixture?.date?.substring(0, 10) ?: "null",
+                            responseData.fixture?.date?.substring(11, 16) ?: "null",
+                            responseData.teams?.home?.name ?: "null",
+                            responseData.teams?.away?.name ?: "null",
+                            responseData.goalsData?.home ?: 0,
+                            responseData.goalsData?.away ?: 0,
+                            responseData.fixture?.status?.elapsed ?: 0
                         )
+                        listOfMatches.add(match)
                     }
+                    matchRepository.insertAll(*listOfMatches.toTypedArray())
+//                        Log.d(TAG, "Request successful. HTTP status code: ${responseJson.code()}")
+                } else {
+                    Log.d(
+                        TAG,
+                        "Request not successful. HTTP status code: ${responseJson.code()}"
+                    )
                 }
             } catch (e: Exception) {
                 Log.d(TAG, "----" + e.toString())
@@ -93,7 +90,8 @@ class MatchPastViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     fun checkInternetConnection(context: Context) {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
         connectivityManager?.let {
             val activeNetworkInfo = it.activeNetworkInfo
             isInternetConnectionLD.postValue(activeNetworkInfo?.isConnected ?: false)

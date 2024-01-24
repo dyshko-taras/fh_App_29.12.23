@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.game.game.R
@@ -47,6 +48,8 @@ class MatchPastActivity : AppCompatActivity() {
 
     private val listOfDates = mutableListOf<String>()
 
+    private var currentDate: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_match_past)
@@ -55,6 +58,7 @@ class MatchPastActivity : AppCompatActivity() {
         setListeners()
 
         viewModel = ViewModelProvider(this).get(MatchPastViewModel::class.java)
+
         viewModel.isInternetConnection.observe(this) { isInternetConnection ->
             Log.d(TAG, "isInternetConnection: $isInternetConnection")
             if (!isInternetConnection) {
@@ -62,13 +66,13 @@ class MatchPastActivity : AppCompatActivity() {
                     viewModel.checkInternetConnection(this)
                 }
             } else {
-                viewModel.getData()
+                viewModel.getData(currentDate)
             }
         }
         val currentTab = tabLayoutDays.getTabAt(tabLayoutDays.tabCount - 1)
         if (currentTab != null) {
             tabLayoutDays.selectTab(currentTab)
-            selectTab(currentTab)
+//            selectTab(currentTab)
         }
     }
 
@@ -91,9 +95,7 @@ class MatchPastActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         recyclerViewAdapter = RecyclerViewAdapterMatchPast(emptyList(), {})
         recyclerView.adapter = recyclerViewAdapter
-
-        //fix recycler view animation
-        (recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        (recyclerView.itemAnimator as? DefaultItemAnimator)?.changeDuration = 2000
     }
 
     private fun setListeners() {
@@ -177,12 +179,13 @@ class MatchPastActivity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     private fun selectTab(tab: TabLayout.Tab) {
         Log.d(TAG, "addOnTabSelectedListener: ${tab.position}")
-        val dataString = listOfDates[tab.position]
-        viewModel.loadByDateAndElapsedTimeNot0(dataString)
-            .observe(this@MatchPastActivity) {
-                recyclerViewAdapter.dataSet = it
+        currentDate = listOfDates[tab.position]
+        viewModel.checkInternetConnection(this)
+        viewModel.loadByDateAndElapsedTimeNot0(currentDate)
+            .observe(this@MatchPastActivity) {matchList ->
+                recyclerViewAdapter.dataSet = matchList
                 recyclerViewAdapter.onClick = clickListener
-//                Log.d(TAG, "setListeners: $it")
+                Log.d(TAG, "1__ Info is empty: ${matchList.isEmpty()}")
                 recyclerViewAdapter.notifyDataSetChanged()
             }
     }
@@ -206,6 +209,8 @@ class MatchPastActivity : AppCompatActivity() {
             val dateStr = formatterAll.format(date.time)
             Log.d(TAG, dateStr)
             listOfDates.add(dateStr)
+
+            currentDate = listOfDates[0]
         }
     }
 
